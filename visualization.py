@@ -7,6 +7,7 @@ def main():
     upper = []
     lower = []
 
+    # Add scores and their intervals for top 15 happiest countries
     with open("World-happiness-report-2024.csv", encoding = "utf-8") as file:
         reader = csv.reader(file)
         headers = next(reader)
@@ -24,6 +25,7 @@ def main():
         error.append([score - lw, uw - score])
     error = list(zip(*error))
 
+    # Vertical bar graph
     plt.figure(figsize = (10, 6))
     plt.bar(countries, scores, yerr = error, capsize = 5, color = "skyblue", edgecolor = "black")
     plt.xlabel("Country")
@@ -36,6 +38,7 @@ def main():
     regions = {}
     region_counts = {}
 
+    # Added countries and their scores by region
     with open("World-happiness-report-2024.csv", encoding = "utf-8") as file:
         reader = csv.reader(file)
         next(reader)
@@ -52,6 +55,7 @@ def main():
             regions[region].append(score)
             region_counts[region] += 1
 
+    # Average happiness across regions
     region_avg = {}
     for region, scores_list in regions.items():
         region_avg[region] = sum(scores_list) / len(scores_list)
@@ -66,6 +70,7 @@ def main():
     for r in sorted_regions:
         region_scores.append(r[1])
 
+    # Horizontal bar graph for average happiness across regions
     plt.figure(figsize = (12, 8))
     bars = plt.barh(region_names, region_scores, color = "lightgreen", edgecolor = "black")
 
